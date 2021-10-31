@@ -1,57 +1,77 @@
 ﻿@model phonebook.Context.phonenumber
 
-
-
 @{
     ViewBag.Title = "Phone";
 }
 
 <style>
-    .error{
-        color:red;
+    .error {
+        color: red;
+    }
+
+    .table td {
+        text-align: center;
+    }
+
+    .table th {
+        text-align: center;
     }
 </style>
 
 @using (Html.BeginForm("AddPhone", "Phone", FormMethod.Post))
 {
-<div class="container">
 
-    <div id="inputdiv">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        First Name
-                    </th>
-                    <th>
-                        Last Name
-                    </th>
-                    <th>
-                        Phone Number
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.TextBoxFor(x => x.first_name)
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(x => x.last_name)
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(x => x.phone_number)
-                    </td>
-                    <td><button type="submit">Submit</button></td>
-                </tr>
-            </tbody>
-        </table>
+    <br />
+    <br />
+
+    <div class="container">
+        <div id="inputdiv">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            Last Name
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                        @Html.HiddenFor(x => x.id)
+                        <td>
+                            @Html.TextBoxFor(x => x.first_name)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(x => x.last_name)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(x => x.phone_number)
+                        </td>
+                        <td><button type="submit" class="btn btn-primary">Submit</button></td>
+                    </tr>
+                    <tr>
+                        <!--
+                        <td>
+                            @Html.ValidationMessageFor(x => x.first_name, "", new { @class = "error" })
+                        </td>
+                        <td>
+                            @Html.ValidationMessageFor(x => x.last_name, "", new { @class = "error" })
+                        </td>
+                        <td>
+                            @Html.ValidationMessageFor(x => x.phone_number, "", new { @class = "error" })
+                        </td>
+                        -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-</div>
 
-<p>
-    @Html.ValidationMessageFor(x => x.first_name, "", new { @class = "error" })
-    @Html.ValidationMessageFor(x => x.last_name, "", new { @class = "error" })
-    @Html.ValidationMessageFor(x => x.phone_number, "", new { @class = "error" })
-</p>
 }

@@ -1,0 +1,54 @@
+﻿@model List<phonebook.Context.phonenumber>
+
+@{
+    ViewBag.Title = "Phonelist";
+}
+
+<style>
+    .table td {
+        text-align: center;
+    }
+
+    .table th {
+        text-align: center;
+    }
+</style>
+
+<br />
+<br />
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.first_name</td>
+                <td>@item.last_name</td>
+                <td>@item.phone_number</td>
+                <td>
+                    <a href="@Url.Action("Phone", new { item.id, item.first_name, item.last_name, item.phone_number })" class="btn btn-info">Edit</a>
+                    <a href="@Url.Action("Delete",new { item.id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

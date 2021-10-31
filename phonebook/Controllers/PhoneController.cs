@@ -2,6 +2,7 @@
 using phonebook.Context;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,28 +13,59 @@ namespace phonebook.Controllers
     {
         // GET: Phone
         phonebookEntities dbObj = new phonebookEntities();
-        public ActionResult Phone()
+        public ActionResult Phone(phonenumber Obj)
         {
-            return View();
+            if (Obj != null)
+                return View(Obj);
+            else
+                return View();
         }
 
         [HttpPost]
         public ActionResult AddPhone(phonenumber model)
         {
+            phonenumber obj = new phonenumber();
             if (ModelState.IsValid)
             {
-                phonenumber obj = new phonenumber();
+                obj.id = model.id;
                 obj.first_name = model.first_name;
                 obj.last_name = model.last_name;
                 obj.phone_number = model.phone_number;
 
-                dbObj.phonenumbers.Add(obj);
-                dbObj.SaveChanges();
+                if (model.id == 0)
+                {
+                    dbObj.phonenumbers.Add(obj);
+                    dbObj.SaveChanges();
+                }
+                else
+                {
+                    dbObj.Entry(obj).State = EntityState.Modified;
+                    dbObj.SaveChanges();
+                }
+
+                
             }
             ModelState.Clear();
            
             return View("Phone");
 
         }
+
+        public ActionResult Phonelist()
+        {
+            var res = dbObj.phonenumbers.ToList();
+            return View(res);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var res = dbObj.phonenumbers.Where(x => x.id == id).First();
+            dbObj.phonenumbers.Remove(res);
+            dbObj.SaveChanges();
+
+            var list = dbObj.phonenumbers.ToList();
+            return View("Phonelist", list);
+        }
+
     }
 }
