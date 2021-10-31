@@ -51,9 +51,9 @@ namespace phonebook.Controllers
 
         }
 
-        public ActionResult Phonelist()
+        public ActionResult Phonelist(string searching)
         {
-            var res = dbObj.phonenumbers.ToList();
+            var res = dbObj.phonenumbers.Where(x => x.phone_number.Contains(searching) || x.first_name.Contains(searching) || x.last_name.Contains(searching) || searching == null ).ToList();
             return View(res);
         }
 

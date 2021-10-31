@@ -1,22 +1,19 @@
 ﻿@model List<phonebook.Context.phonenumber>
 
-@{
-    ViewBag.Title = "Phonelist";
-}
-
-<style>
-    .table td {
-        text-align: center;
-    }
-
-    .table th {
-        text-align: center;
-    }
-</style>
-
 <br />
 <br />
+
+
+
 <div class="container">
+    
+    @using (Html.BeginForm("Phonelist", "Phone", FormMethod.Get))
+    {
+    @Html.TextBox("searching")    <input class="btn btn-outline-secondary" type="submit" value="Search" />
+    }
+
+    <br />
+    <br />
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -35,20 +32,44 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model.Count() == 0)
             {
-            <tr>
-                <td>@item.first_name</td>
-                <td>@item.last_name</td>
-                <td>@item.phone_number</td>
-                <td>
-                    <a href="@Url.Action("Phone", new { item.id, item.first_name, item.last_name, item.phone_number })" class="btn btn-info">Edit</a>
-                    <a href="@Url.Action("Delete",new { item.id })" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="3" style="color:red">
+                        No Match Any Document
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.first_name</td>
+                        <td>@item.last_name</td>
+                        <td>@item.phone_number</td>
+                        <td>
+                            <a href="@Url.Action("Phone", new { item.id, item.first_name, item.last_name, item.phone_number })" class="btn btn-info">Edit</a>
+                            <a href="@Url.Action("Delete",new { item.id })" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
             }
 
         </tbody>
     </table>
+    <div>
+        <a href="@Url.Action("Phone")" class="btn btn-warning">Back</a>
+    </div>
 </div>
+
+<style>
+    .table td {
+        text-align: center;
+    }
+
+    .table th {
+        text-align: center;
+    }
+</style>
 

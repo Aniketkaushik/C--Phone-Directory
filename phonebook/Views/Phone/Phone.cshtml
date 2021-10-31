@@ -40,7 +40,7 @@
                         </th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     <tr>
                         @Html.HiddenFor(x => x.id)
@@ -57,20 +57,26 @@
                     </tr>
                     <tr>
                         <!--
-                        <td>
-                            @Html.ValidationMessageFor(x => x.first_name, "", new { @class = "error" })
-                        </td>
-                        <td>
-                            @Html.ValidationMessageFor(x => x.last_name, "", new { @class = "error" })
-                        </td>
-                        <td>
-                            @Html.ValidationMessageFor(x => x.phone_number, "", new { @class = "error" })
-                        </td>
-                        -->
+                <td>
+                    @Html.ValidationMessageFor(x => x.first_name, "", new { @class = "error" })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(x => x.last_name, "", new { @class = "error" })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(x => x.phone_number, "", new { @class = "error" })
+                </td>
+                -->
                     </tr>
                 </tbody>
             </table>
+
+            
+            <div>
+                <a href="@Url.Action("Phonelist")" class="btn btn-warning">Phone List</a>
+            </div>
         </div>
+        
 
     </div>
 
